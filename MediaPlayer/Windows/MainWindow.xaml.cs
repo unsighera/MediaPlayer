@@ -2,6 +2,7 @@
 using System.Windows;
 using Microsoft.Win32;
 using System.Windows.Threading;
+using MediaPlayer.Windows;
 
 namespace MediaPlayer
 {
@@ -32,6 +33,12 @@ namespace MediaPlayer
                 queueWindow.QueueList.Add(fileName);
                 queueWindow.queueListBox.Items.Refresh();
             }
+        }
+
+        private void OpenPlaylits_Click(object sender, RoutedEventArgs e)
+        {
+            var playlists = new PlaylistsWindow();
+            playlists.ShowDialog();
         }
 
         private void OpenQueue_Click(object sender, RoutedEventArgs e)

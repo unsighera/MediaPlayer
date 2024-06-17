@@ -1,0 +1,34 @@
+﻿<Window x:Class="MediaPlayer.Windows.PlaylistsWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:MediaPlayer.Windows"
+        mc:Ignorable="d"
+        Title="PlaylistsWindow" Height="450" Width="800">
+    <Grid>
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*" />
+            <RowDefinition Height="Auto" />
+        </Grid.RowDefinitions>
+
+        <ListView x:Name="PlaylistsListView" Grid.Row="0" MouseRightButtonDown="PlaylistsListView_MouseRightButtonDown">
+            <ListView.ContextMenu>
+                <ContextMenu>
+                    <MenuItem Header="Показать плейлист" Click="ShowPlaylist_Click"/>
+                </ContextMenu>
+            </ListView.ContextMenu>
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn Header="Название плейлиста" DisplayMemberBinding="{Binding Name}" />
+                </GridView>
+            </ListView.View>
+        </ListView>
+
+        <StackPanel Grid.Row="1" Orientation="Horizontal" HorizontalAlignment="Center">
+            <Button Content="Воспроизвести" Click="Play_Click" Margin="5"/>
+            <Button Content="Удалить" Click="Delete_Click" Margin="5"/>
+            <Button Content="Добавить" Margin="5" Click="Add_Click"/>
+        </StackPanel>
+    </Grid>
+</Window>

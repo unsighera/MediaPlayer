@@ -55,9 +55,19 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Windows\AddPlayListWindow.xaml.cs">
+      <DependentUpon>AddPlayListWindow.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Windows\PlaylistsWindow.xaml.cs">
+      <DependentUpon>PlaylistsWindow.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Windows\Queue.xaml.cs">
       <DependentUpon>Queue.xaml</DependentUpon>
     </Compile>
+    <Page Include="Windows\AddPlayListWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\MainWindow.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -70,6 +80,10 @@
       <DependentUpon>MainWindow.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
+    <Page Include="Windows\PlaylistsWindow.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Windows\Queue.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
