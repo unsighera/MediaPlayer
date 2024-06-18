@@ -3,7 +3,6 @@ using System.Collections.Generic;
 using System.Windows;
 using Microsoft.Win32;
 using System.Windows.Threading;
-using MediaPlayer.DataBase;
 
 namespace MediaPlayer
 {
