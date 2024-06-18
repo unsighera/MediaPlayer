@@ -1,8 +1,9 @@
 ﻿using System;
+using System.Collections.Generic;
 using System.Windows;
 using Microsoft.Win32;
 using System.Windows.Threading;
-using MediaPlayer.Windows;
+using MediaPlayer.DataBase;
 
 namespace MediaPlayer
 {
@@ -10,7 +11,7 @@ namespace MediaPlayer
     {
         private DispatcherTimer timer;
         private Queue queueWindow;
-
+        private Queue<Song> SongQueue;
         public MainWindow()
         {
             InitializeComponent();
@@ -24,7 +25,7 @@ namespace MediaPlayer
         private void AddFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
-            openFileDialog.Filter = "Media files (*.mp4;*.mp3)|*.mp4;*.mp3|All files (*.*)|*.*";
+            openFileDialog.Filter = "Media files (*.mp3)|*.mp3|All files (*.*)|*.*";
             if (openFileDialog.ShowDialog() == true)
             {
                 string fileName = openFileDialog.FileName;
@@ -35,14 +36,9 @@ namespace MediaPlayer
             }
         }
 
-        private void OpenPlaylits_Click(object sender, RoutedEventArgs e)
-        {
-            var playlists = new PlaylistsWindow();
-            playlists.ShowDialog();
-        }
-
         private void OpenQueue_Click(object sender, RoutedEventArgs e)
         {
+            queueWindow = new Queue();
             queueWindow.Show();
         }
 
@@ -103,6 +99,12 @@ namespace MediaPlayer
             {
                 mediaElement.Position = TimeSpan.FromSeconds(timelineSlider.Value);
             }
+        }
+
+        private void Playlist_Click(object sender, RoutedEventArgs e)
+        {
+            //PlayerWindow p = new PlayerWindow();
+            //p.Show();
         }
     }
 }
