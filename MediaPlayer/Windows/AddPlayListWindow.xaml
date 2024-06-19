@@ -13,8 +13,8 @@
             <RowDefinition Height="Auto"/>
         </Grid.RowDefinitions>
 
-        <TextBox x:Name="PlaylistNameTextBox" Grid.Row="0" Margin="5" Text="Enter playlist name"/>
-        <ListBox x:Name="MusicSelectionListBox" Grid.Row="1" Margin="5" SelectionMode="Multiple">
+        <TextBox x:Name="PlaylistNameTextBox" Grid.Row="0" Margin="5" Text="Enter playlist name" GotFocus="PlaylistNameTextBox_GotFocus"/>
+        <ListBox x:Name="MusicSelectionListBox" Grid.Row="1" Margin="5" DisplayMemberPath="FileName" SelectionMode="Multiple">
 
         </ListBox>
         <Button Content="Add Playlist" Grid.Row="2" Margin="5" Click="AddPlaylist_Click"/>

@@ -15,12 +15,19 @@
 
         <TextBlock Text="Очередь воспроизведения" FontSize="20" FontWeight="Bold" HorizontalAlignment="Center" Margin="10"/>
 
-        <ListBox Name="queueListBox" Grid.Row="1" Margin="10"/>
+        <ListView Name="queueListBox" Grid.Row="1" Margin="10">
+            <ListView.View>
+                <GridView>
+                    <GridViewColumn DisplayMemberBinding="{Binding Path=FileName}"></GridViewColumn>
+                </GridView>
+            </ListView.View>
+        </ListView>
 
         <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
-            <Button Content="Воспроизвести" Click="Play_Click" Width="100" Margin="5"/>
-            <Button Content="Удалить" Click="Remove_Click" Width="100" Margin="5"/>
-            <Button Content="Следующий" Click="Next_Click" Width="100" Margin="5"/>
+            <Button Content="Перемешать" Width="100" Margin="5" Click="Shuffle_Click"></Button>
+            <Button Content="Добавить" Width="100" Margin="5" Click="Add_Click"></Button>
+            <Button Content="Готово" Width="100" Margin="5" Click="Done_Click"></Button>
+            <Button Content="Пропустить" Click="Next_Click" Width="100" Margin="5"/>
         </StackPanel>
     </Grid>
 </Window>

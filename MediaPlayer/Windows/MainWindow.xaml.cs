@@ -3,6 +3,8 @@ using System.Collections.Generic;
 using System.Windows;
 using Microsoft.Win32;
 using System.Windows.Threading;
+using MediaPlayer.DataBase;
+using MediaPlayer.Windows;
 
 namespace MediaPlayer
 {
@@ -17,27 +19,23 @@ namespace MediaPlayer
             timer = new DispatcherTimer();
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
-
-            queueWindow = new Queue();
+            SongQueue = new Queue<Song>();
         }
 
         private void AddFile_Click(object sender, RoutedEventArgs e)
         {
             OpenFileDialog openFileDialog = new OpenFileDialog();
             openFileDialog.Filter = "Media files (*.mp3)|*.mp3|All files (*.*)|*.*";
-            if (openFileDialog.ShowDialog() == true)
-            {
-                string fileName = openFileDialog.FileName;
-                mediaElement.Source = new Uri(fileName);
-                currentFileLabel.Content = System.IO.Path.GetFileName(fileName);
-                queueWindow.QueueList.Add(fileName);
-                queueWindow.queueListBox.Items.Refresh();
-            }
+            if (openFileDialog.ShowDialog() != true) return;
+            var fileName = openFileDialog.FileName;
+            mediaElement.Source = new Uri(fileName);
+            currentFileLabel.Content = System.IO.Path.GetFileName(fileName);
+            SongQueue = new Queue<Song>();
         }
 
         private void OpenQueue_Click(object sender, RoutedEventArgs e)
         {
-            queueWindow = new Queue();
+            queueWindow = new Queue(SongQueue);
             queueWindow.Show();
         }
 
@@ -82,6 +80,8 @@ namespace MediaPlayer
         {
             timer.Stop();
             timelineSlider.Value = 0;
+            if (SongQueue.Count == 0) return;
+            PlayFile(SongQueue.Dequeue().FilePath);
         }
 
         private void Timer_Tick(object sender, EventArgs e)
@@ -102,8 +102,39 @@ namespace MediaPlayer
 
         private void Playlist_Click(object sender, RoutedEventArgs e)
         {
-            //PlayerWindow p = new PlayerWindow();
-            //p.Show();
+            PlaylistsWindow playlistsWindow = new PlaylistsWindow();
+            playlistsWindow.Show();
         }
+
+        public void QueueChanged()
+        {
+            if (queueWindow._queue.Count == 0)
+            {
+                SongQueue = new Queue<Song>();
+                mediaElement.Source = null;
+                currentFileLabel.Content = "";
+                return;
+            }
+            SongQueue = queueWindow._queue;
+            Song first = SongQueue.Peek();
+            mediaElement.Source = new Uri(first.FilePath);
+            currentFileLabel.Content = first.FileName;
+        }
+        public void QueueChanged(Queue<Song> newQueue)
+        {
+            if (newQueue.Count == 0)
+            {
+                SongQueue = new Queue<Song>();
+                mediaElement.Source = null;
+                currentFileLabel.Content = "";
+                return;
+            }
+            SongQueue = newQueue;
+            Song first = SongQueue.Peek();
+            mediaElement.Source = new Uri(first.FilePath);
+            currentFileLabel.Content = first.FileName;
+        }
+
+        public Queue<Song> GetQueue() => SongQueue;
     }
 }

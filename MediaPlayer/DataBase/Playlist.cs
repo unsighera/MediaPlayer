@@ -17,13 +17,13 @@ namespace MediaPlayer.DataBase
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Playlist()
         {
-            this.Song = new HashSet<Song>();
+            this.Song_playlist = new HashSet<Song_playlist>();
         }
     
-        public int ID { get; set; }
+        public string ID { get; set; }
         public string Name { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Song> Song { get; set; }
+        public virtual ICollection<Song_playlist> Song_playlist { get; set; }
     }
 }

@@ -12,19 +12,13 @@ namespace MediaPlayer.DataBase
     using System;
     using System.Collections.Generic;
     
-    public partial class Song
+    public partial class Song_playlist
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Song()
-        {
-            this.Song_playlist = new HashSet<Song_playlist>();
-        }
-    
+        public string Playlist_id { get; set; }
+        public string song_id { get; set; }
         public string ID { get; set; }
-        public string FilePath { get; set; }
-        public string FileName { get; set; }
     
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<Song_playlist> Song_playlist { get; set; }
+        public virtual Playlist Playlist { get; set; }
+        public virtual Song Song { get; set; }
     }
 }

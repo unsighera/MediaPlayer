@@ -11,6 +11,7 @@ using System.Windows.Input;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Shapes;
+using MediaPlayer.DataBase;
 
 namespace MediaPlayer.Windows
 {
@@ -19,47 +20,60 @@ namespace MediaPlayer.Windows
     /// </summary>
     public partial class PlaylistsWindow : Window
     {
+        private List<Playlist> _playlists;
         public PlaylistsWindow()
         {
             InitializeComponent();
+            _playlists = DataBaseManager.GetAllPlayLists();
+            PlaylistsListView.ItemsSource = _playlists;
+            PlaylistsListView.Items.Refresh();
         }
 
         private void Add_Click(object sender, RoutedEventArgs e)
         {
             var addPlaylistWindow = new AddPlayListWindow();
             addPlaylistWindow.ShowDialog();
+            if (DialogResult == true) return;
+            PlaylistsListView.ItemsSource = DataBaseManager.GetAllPlayLists();
         }
 
         private void Delete_Click(object sender, RoutedEventArgs e)
         {
-
+            if (PlaylistsListView.SelectedItem is Playlist item)
+            {
+                DataBaseManager.RemovePlayList(item);
+                PlaylistsListView.ItemsSource = DataBaseManager.GetAllPlayLists();
+            }
         }
 
         private void Play_Click(object sender, RoutedEventArgs e)
         {
-
+            if (PlaylistsListView.SelectedItem is Playlist item)
+            {
+                ((MainWindow)Application.Current.MainWindow).QueueChanged(new Queue<Song>(DataBaseManager.GetPlaylistSongs(item)));
+            }
         }
 
-        private void PlaylistsListView_MouseRightButtonDown(object sender, MouseButtonEventArgs e)
-        {
-            var listView = sender as ListView;
-            var clickedItem = listView.SelectedItem;
 
-            if (clickedItem != null)
+        private void Add_to_Queue_Click(object sender, RoutedEventArgs e)
+        {
+            if (PlaylistsListView.SelectedItem is Playlist item)
             {
-                listView.ContextMenu.IsOpen = true;
+                var q = ((MainWindow)Application.Current.MainWindow).GetQueue();
+                foreach (var s in new Queue<Song>(DataBaseManager.GetPlaylistSongs(item)))
+                {
+                    q.Enqueue(s);
+                }
+                ((MainWindow)Application.Current.MainWindow).QueueChanged(q);
             }
         }
 
         private void ShowPlaylist_Click(object sender, RoutedEventArgs e)
         {
             // Обработка события "Показать плейлист"
-            var playlist = PlaylistsListView.SelectedItem as Playlist;
-            if (playlist != null)
-            {
-                var playlistWindow = new PlaylistsWindow(playlist);
-                playlistWindow.ShowDialog();
-            }
+            if (!(PlaylistsListView.SelectedItem is Playlist playlist)) return;
+            var playlistWindow = new PlaylistWindow(playlist);
+            playlistWindow.ShowDialog();
         }
     }
 }

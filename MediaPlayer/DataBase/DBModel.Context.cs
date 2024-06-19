@@ -27,6 +27,7 @@ namespace MediaPlayer.DataBase
     
         public virtual DbSet<Playlist> Playlist { get; set; }
         public virtual DbSet<Song> Song { get; set; }
+        public virtual DbSet<Song_playlist> Song_playlist { get; set; }
         public virtual DbSet<sysdiagrams> sysdiagrams { get; set; }
     }
 }
