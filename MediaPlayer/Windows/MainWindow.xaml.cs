@@ -13,6 +13,7 @@ namespace MediaPlayer
         private DispatcherTimer timer;
         private Queue queueWindow;
         private Queue<Song> SongQueue;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -20,6 +21,9 @@ namespace MediaPlayer
             timer.Interval = TimeSpan.FromSeconds(1);
             timer.Tick += Timer_Tick;
             SongQueue = new Queue<Song>();
+
+            mediaElement.Volume = 0.5;
+            volumeSlider.ValueChanged += VolumeSlider_ValueChanged;
         }
 
         private void AddFile_Click(object sender, RoutedEventArgs e)
@@ -100,6 +104,11 @@ namespace MediaPlayer
             }
         }
 
+        private void VolumeSlider_ValueChanged(object sender, RoutedPropertyChangedEventArgs<double> e)
+        {
+            mediaElement.Volume = volumeSlider.Value;
+        }
+
         private void Playlist_Click(object sender, RoutedEventArgs e)
         {
             PlaylistsWindow playlistsWindow = new PlaylistsWindow();
@@ -120,6 +129,7 @@ namespace MediaPlayer
             mediaElement.Source = new Uri(first.FilePath);
             currentFileLabel.Content = first.FileName;
         }
+
         public void QueueChanged(Queue<Song> newQueue)
         {
             if (newQueue.Count == 0)

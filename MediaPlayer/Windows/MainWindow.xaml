@@ -7,7 +7,6 @@
         mc:Ignorable="d"
         Title="MainWindow" Height="450" Width="800">
     <DockPanel>
-
         <Menu DockPanel.Dock="Top">
             <MenuItem Header="Файл">
                 <MenuItem Header="Добавить файл" Click="AddFile_Click"/>
@@ -31,6 +30,10 @@
                 <Button Content="Пауза" Click="Pause_Click" Width="75" Margin="5,0,0,0"/>
                 <Button Content="Стоп" Click="Stop_Click" Width="75" Margin="5,0,0,0"/>
                 <Button Content="Открыть файл" Click="AddFile_Click" Width="100" Margin="5,0,0,0"/>
+            </StackPanel>
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" Margin="10">
+                <Label Content="Громкость:" VerticalAlignment="Center"/>
+                <Slider Name="volumeSlider" Minimum="0" Maximum="1" Value="0.5" Width="100" Margin="5,0,0,0"/>
             </StackPanel>
             <Label Name="currentFileLabel" HorizontalAlignment="Center" Margin="10,5,0,0"/>
         </StackPanel>
