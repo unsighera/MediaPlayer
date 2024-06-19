@@ -84,6 +84,13 @@ namespace MediaPlayer.DataBase
         public static void RemovePlayList(Playlist playlist)
         {
             _dataBase.Playlist.Remove(playlist);
+            var lst = _dataBase.Song_playlist.ToList();
+            while (lst.FirstOrDefault(x => x.Playlist == playlist) != null)
+            {
+                var p = _dataBase.Song_playlist.FirstOrDefault(x => x.Playlist == playlist);
+                lst.Remove(p);
+                _dataBase.Song_playlist.Remove(p);
+            }
             SaveChanges();
         }
 

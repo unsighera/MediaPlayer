@@ -39,7 +39,9 @@
           <Property Name="definition" Type="varbinary(max)" />
         </EntityType>
         <Association Name="FK_Song_playlist_Playlist">
-          <End Role="Playlist" Type="Self.Playlist" Multiplicity="1" />
+          <End Role="Playlist" Type="Self.Playlist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Song_playlist" Type="Self.Song_playlist" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Playlist">
@@ -119,7 +121,9 @@
           <Property Name="definition" Type="Binary" MaxLength="Max" FixedLength="false" />
         </EntityType>
         <Association Name="FK_Song_playlist_Playlist">
-          <End Role="Playlist" Type="Self.Playlist" Multiplicity="1" />
+          <End Role="Playlist" Type="Self.Playlist" Multiplicity="1">
+            <OnDelete Action="Cascade" />
+          </End>
           <End Role="Song_playlist" Type="Self.Song_playlist" Multiplicity="*" />
           <ReferentialConstraint>
             <Principal Role="Playlist">
